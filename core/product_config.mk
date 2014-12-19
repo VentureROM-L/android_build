@@ -192,6 +192,7 @@ else
     # files in the tree.
     all_product_configs := $(get-all-product-makefiles)
   endif # TARGET_BUILD_APPS
+
 endif # VENTURE_BUILD
 
 ifeq ($(VENTURE_BUILD),)

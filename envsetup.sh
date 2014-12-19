@@ -64,13 +64,13 @@ function check_product()
         return
     fi
 
-    if (echo -n $1 | grep -q -e "^pa_") ; then
-       PA_BUILD=$(echo -n $1 | sed -e 's/^pa_//g')
-       export BUILD_NUMBER=$((date +%s%N ; echo $PA_BUILD; hostname) | openssl sha1 | sed -e 's/.*=//g; s/ //g' | cut -c1-10)
+    if (echo -n $1 | grep -q -e "^venture_") ; then
+       VENTURE_BUILD=$(echo -n $1 | sed -e 's/^venture_//g')
+       export BUILD_NUMBER=$((date +%s%N ; echo $VENTURE_BUILD; hostname) | openssl sha1 | sed -e 's/.*=//g; s/ //g' | cut -c1-10)
     else
-       PA_BUILD=
+       VENTURE_BUILD=
     fi
-    export PA_BUILD
+    export VENTURE_BUILD
 
         TARGET_PRODUCT=$1 \
         TARGET_BUILD_VARIANT= \
@@ -642,7 +642,7 @@ function eat()
 {
     if [ "$OUT" ] ; then
         MODVERSION=`sed -n -e'/ro\.pa\.version/s/.*=//p' $OUT/system/build.prop`
-        ZIPFILE=pa-$MODVERSION.zip
+        ZIPFILE=venturerom-$MODVERSION.zip
         ZIPPATH=$OUT/$ZIPFILE
         if [ ! -f $ZIPPATH ] ; then
             echo "Nothing to eat"
@@ -1503,7 +1503,7 @@ function repopick() {
 function fixup_common_out_dir() {
     common_out_dir=$(get_build_var OUT_DIR)/target/common
     target_device=$(get_build_var TARGET_DEVICE)
-    if [ ! -z $PA_FIXUP_COMMON_OUT ]; then
+    if [ ! -z $VENTURE_FIXUP_COMMON_OUT ]; then
         if [ -d ${common_out_dir} ] && [ ! -L ${common_out_dir} ]; then
             mv ${common_out_dir} ${common_out_dir}-${target_device}
             ln -s ${common_out_dir}-${target_device} ${common_out_dir}
@@ -1681,7 +1681,7 @@ unset f
 
 # Add completions
 check_bash_version && {
-    dirs="sdk/bash_completion vendor/pa/bash_completion"
+    dirs="sdk/bash_completion vendor/venture/bash_completion"
     for dir in $dirs; do
     if [ -d ${dir} ]; then
         for f in `/bin/ls ${dir}/[a-z]*.bash 2> /dev/null`; do

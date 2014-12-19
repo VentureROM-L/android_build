@@ -48,6 +48,7 @@ local_manifest_dir = ".repo/local_manifests"
 android_team = "VentureROM-L"
 
 
+
 def check_repo_exists(git_data):
     if not int(git_data.get('total_count', 0)):
         raise Exception("{} not found in {} Github, exiting "
