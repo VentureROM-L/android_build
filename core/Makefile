@@ -1680,7 +1680,6 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 
 VENTURE_TARGET_PACKAGE := $(PRODUCT_OUT)/$(TARGET_PRODUCT)-$(ROM_VERSION).zip
 
-
 .PHONY: otapackage bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
@@ -1696,8 +1695,15 @@ ifneq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),yes)
 endif
 endif
 
-	@echo -e ${CL_CYN}"Package Complete: $(VENTURE_TARGET_PACKAGE)"${CL_RST}
-
+	@echo -e ${CL_RST}""{CL_RST}
+	@echo -e ${CL_BLU}" _   _            _                 ______ ________  ___"${CL_RST}
+	@echo -e ${CL_BLU}"| | | |          | |                | ___ \  _  |  \/  |"${CL_RST}
+	@echo -e ${CL_BLU}"| | | | ___ _ __ | |_ _   _ _ __ ___| |_/ / | | | .  . |"${CL_RST}
+	@echo -e ${CL_BLU}"| | | |/ _ \ '_ \| __| | | | '__/ _ \    /| | | | |\/| |"${CL_RST}
+	@echo -e ${CL_BLU}"\ \_/ /  __/ | | | |_| |_| | | |  __/ |\ \\ \_/ / |  | |"${CL_RST}
+	@echo -e ${CL_BLU}" \___/ \___|_| |_|\__|\__,_|_|  \___\_| \_|\___/\_|  |_/"${CL_RST}
+	@echo -e ${CL_RST}""{CL_RST}
+	@echo -e ${CL_BLU}"Your build is completed: $(VENTURE_TARGET_PACKAGE) ... flash it!!"{CL_RST}
 
 ifeq ($(CHANGELOG),true)
 # Generate changelog
