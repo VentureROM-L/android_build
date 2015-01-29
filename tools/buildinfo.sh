@@ -55,8 +55,8 @@ if [ -n "$BUILD_THUMBPRINT" ] ; then
   echo "# Do not try to parse thumbprint"
   echo "ro.build.thumbprint=$BUILD_THUMBPRINT"
 fi
-echo "ro.du.device=$TARGET_DEVICE"
-echo "ro.du.model=$PRODUCT_MODEL"
+echo "ro.venture.device=$TARGET_DEVICE"
+echo "ro.venture.model=$PRODUCT_MODEL"
 echo "ro.build.characteristics=$TARGET_AAPT_CHARACTERISTICS"
 
 echo "# end build properties"

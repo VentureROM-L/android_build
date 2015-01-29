@@ -17,7 +17,7 @@ endif
 LOCAL_PATH := $(BUILD_SYSTEM)
 
 # Pick a reasonable string to use to identify files.
-ifneq ($(DU_BUILD),)
+ifneq ($(VENTURE_BUILD),)
 ifneq "" "$(filter eng.%,$(BUILD_NUMBER))"
   # BUILD_NUMBER has a timestamp in it, which means that
   # it will change every time.  Pick a stable value.
@@ -210,7 +210,7 @@ ifneq ($(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_OEM_PROPERTIES),)
 endif
 	$(hide) TARGET_BUILD_TYPE="$(TARGET_BUILD_VARIANT)" \
 			TARGET_DEVICE="$(TARGET_DEVICE)" \
-			DU_DEVICE="$(TARGET_DEVICE)" \
+			VENTURE_DEVICE="$(TARGET_DEVICE)" \
 			PRODUCT_NAME="$(TARGET_PRODUCT)" \
 			PRODUCT_BRAND="$(PRODUCT_BRAND)" \
 			PRODUCT_DEFAULT_LANGUAGE="$(call default-locale-language,$(PRODUCT_LOCALES))" \
@@ -1618,7 +1618,7 @@ KERNEL_PATH := $(TARGET_KERNEL_SOURCE)/arch/arm/configs/$(TARGET_KERNEL_CONFIG)
 ifeq ($(WITH_GMS),true)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
 else
-ifneq ($(DU_BUILD),)
+ifneq ($(VENTURE_BUILD),)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := true
 else
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
@@ -1631,8 +1631,8 @@ else
     $(INTERNAL_OTA_PACKAGE_TARGET): override_prop := true
 endif
 
-ifneq ($(DU_BUILD),)
-DU_TARGET_PACKAGE := $(PRODUCT_OUT)/$(DU_VERSION).zip
+ifneq ($(VENTURE_BUILD),)
+VENTURE_TARGET_PACKAGE := $(PRODUCT_OUT)/$(VENTURE_VERSION).zip
 endif
 
 ifeq ($(TARGET_OTA_ASSERT_DEVICE),)
@@ -1648,7 +1648,7 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 	$(hide) MKBOOTIMG=$(MKBOOTIMG) \
 	   CUSTOM_BOOTING_MK=$(BOARD_CUSTOM_BOOTIMG_MK) \
 	   $(OTA_FROM_TARGET_SCRIPT) -v \
-	   $(if $(DU_BUILD), --block) \
+	   $(if $(VENTURE_BUILD), --block) \
 	   -p $(HOST_OUT) \
 	   -k $(KEY_CERT_PAIR) \
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
@@ -1660,35 +1660,13 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 
 bacon: check_bacon otapackage
-ifneq ($(DU_BUILD),)
-	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(DU_TARGET_PACKAGE)
-	$(hide) $(MD5SUM) $(DU_TARGET_PACKAGE) > $(DU_TARGET_PACKAGE).md5sum
+ifneq ($(VENTURE_BUILD),)
+	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(VENTURE_TARGET_PACKAGE)
+	$(hide) $(MD5SUM) $(VENTURE_TARGET_PACKAGE) > $(VENTURE_TARGET_PACKAGE).md5
 	@echo -e ${CL_RED}""${CL_RED}
-	@echo -e ${CL_RED}".......................########..####.########..########.##....##......................"${CL_RED}
-	@echo -e ${CL_RED}".......................##.....##..##..##.....##....##.....##..##......................."${CL_RED}
-	@echo -e ${CL_RED}".......................##.....##..##..##.....##....##......####........................"${CL_RED}
-	@echo -e ${CL_RED}".......................##.....##..##..########.....##.......##........................."${CL_RED}
-	@echo -e ${CL_RED}".......................##.....##..##..##...##......##.......##........................."${CL_RED}
-	@echo -e ${CL_RED}".......................##.....##..##..##....##.....##.......##........................."${CL_RED}
-	@echo -e ${CL_RED}".......................########..####.##.....##....##.......##........................."${CL_RED}
-	@echo -e ${CL_RED}"......................................................................................."${CL_RED}
-	@echo -e ${CL_RED}"......................................................................................."${CL_RED}
-	@echo -e ${CL_RED}".........##.....##.##....##.####..######...#######..########..##....##..######........."${CL_RED}
-	@echo -e ${CL_RED}".........##.....##.###...##..##..##....##.##.....##.##.....##.###...##.##....##........"${CL_RED}
-	@echo -e ${CL_RED}".........##.....##.####..##..##..##.......##.....##.##.....##.####..##.##.............."${CL_RED}
-	@echo -e ${CL_RED}".........##.....##.##.##.##..##..##.......##.....##.########..##.##.##..######........."${CL_RED}
-	@echo -e ${CL_RED}".........##.....##.##..####..##..##.......##.....##.##...##...##..####.......##........"${CL_RED}
-	@echo -e ${CL_RED}".........##.....##.##...###..##..##....##.##.....##.##....##..##...###.##....##........"${CL_RED}
-	@echo -e ${CL_RED}"..........#######..##....##.####..######...#######..##.....##.##....##..######........."${CL_RED}
-	@echo -e ${CL_RST}""${CL_RST}
-	@echo -e ${CL_RST}""${CL_RST}
-	@echo -e ${CL_RST}"                    Build completed! Now Flash that shit and ENJOY!!                   "${CL_RST} 
-	@echo -e ${CL_RST}""${CL_RST}
-	@echo -e ${CL_RST}""${CL_RST}
 	@echo -e ${CL_RED}"======================================================================================="${CL_RED}
-	@echo -e ${CL_RST}"$(DU_TARGET_PACKAGE)"${CL_RST}
+	@echo -e ${CL_RST}"$(VENTURE_TARGET_PACKAGE)"${CL_RST}
 	@echo -e ${CL_RED}"======================================================================================="${CL_RED}
-	@echo -e ${CL_RST}"Be yourself. Unless you can be a unicorn, In that case, you should always be a unicorn."${CL_RST}
 endif
 
 check_bacon:

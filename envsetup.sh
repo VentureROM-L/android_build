@@ -70,12 +70,12 @@ function check_product()
         return
     fi
 
-    if (echo -n $1 | grep -q -e "^du_") ; then
-       DU_BUILD=$(echo -n $1 | sed -e 's/^du_//g')
+    if (echo -n $1 | grep -q -e "^venture_") ; then
+       VENTURE_BUILD=$(echo -n $1 | sed -e 's/^venture_//g')
     else
-       DU_BUILD=
+       VENTURE_BUILD=
     fi
-    export DU_BUILD
+    export VENTURE_BUILD
 
         TARGET_PRODUCT=$1 \
         TARGET_BUILD_VARIANT= \
@@ -526,10 +526,10 @@ function breakfast()
 {
     target=$1
     local variant=$2
-    DU_DEVICES_ONLY="true"
+    VENTURE_DEVICES_ONLY="true"
     unset LUNCH_MENU_CHOICES
     add_lunch_combo full-eng
-    for f in `/bin/ls vendor/du/vendorsetup.sh 2> /dev/null`
+    for f in `/bin/ls vendor/venture/vendorsetup.sh 2> /dev/null`
         do
 echo "including $f"
             . $f
@@ -549,7 +549,7 @@ echo "z$target" | grep -q "-"
             if [ -z "$variant" ]; then
                 variant="userdebug"
             fi
-            lunch du_$target-$variant
+            lunch venture_$target-$variant
         fi
 fi
 return $?
