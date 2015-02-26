@@ -583,27 +583,12 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   device_specific.FullOTA_InstallBegin()
 
   script.Print("")
-  script.Print("       || THANK YOU FOR FLASHING ||        ")
+  script.Print(" _   __         __               ___  ____  __  ___")
+  script.Print("| | / /__ ___  / /___ _________ / _ \/ __ \/  |/  /")
+  script.Print("| |/ / -_) _ \/ __/ // / __/ -_) , _/ /_/ / /|_/ / ")
+  script.Print("|___/\__/_//_/\__/\_,_/_/  \__/_/|_|\____/_/  /_/  ")          
   script.Print("")
-  script.Print("DDDDDDDDDDDDD        UUUUUUUU     UUUUUUUU");
-  script.Print("D::::::::::::DDD     U::::::U     U::::::U");
-  script.Print("D:::::::::::::::DD   U::::::U     U::::::U");
-  script.Print("DDD:::::DDDDD:::::D  UU:::::U     U:::::UU");
-  script.Print("  D:::::D    D:::::D  U:::::U     U:::::U ");
-  script.Print("  D:::::D     D:::::D U:::::D     D:::::U ");
-  script.Print("  D:::::D     D:::::D U:::::D     D:::::U ");
-  script.Print("  D:::::D     D:::::D U:::::D     D:::::U ");
-  script.Print("  D:::::D     D:::::D U:::::D     D:::::U ");
-  script.Print("  D:::::D     D:::::D U:::::D     D:::::U ");
-  script.Print("  D:::::D     D:::::D U:::::D     D:::::U ");
-  script.Print("  D:::::D    D:::::D  U::::::U   U::::::U ");
-  script.Print("DDD:::::DDDDD:::::D   U:::::::UUU:::::::U ");
-  script.Print("D:::::::::::::::DD     UU:::::::::::::UU  ");
-  script.Print("D::::::::::::DDD         UU:::::::::UU    ");
-  script.Print("DDDDDDDDDDDDD              UUUUUUUUU      ");
-  script.Print("")
-  script.Print("          ||| ANDROID 5.0.2 |||           ")
-  script.Print("")
+  script.Print("VentureROM is being flashed...")
 
   if OPTIONS.backuptool:
     if block_based:
@@ -759,7 +744,7 @@ endif;
   script.AddToZip(input_zip, output_zip, input_path=OPTIONS.updater_binary)
   WriteMetadata(metadata, output_zip)
 
-  common.ZipWriteStr(output_zip, "META-INF/org/du/releasekey",
+  common.ZipWriteStr(output_zip, "META-INF/org/venture/releasekey",
                      ""+input_zip.read("META/releasekey.txt"))
 
 def WritePolicyConfig(file_context, output_zip):
